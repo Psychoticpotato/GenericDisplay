@@ -25,6 +25,7 @@ const nameSect: annotation.DisplaySection = {
 
 const tab: annotation.DisplayTab = {
   _title: 'personalInfo',
+  _description: 'Info about a person',
   _index: 0,
   nameSect,
 }
