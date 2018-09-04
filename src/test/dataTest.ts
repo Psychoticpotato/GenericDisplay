@@ -1,6 +1,6 @@
 import * as data from '../general/dataDisplay.js'
 import * as annotation from '../general/annotation.js'
-import { generateTabs } from '../display/generateDiv.js'
+import { generateTabs } from '../display/generateTabs.js'
 import { randomReady } from './dataTestRandom.js'
 /** First name of an individual */
 const firstName: annotation.DisplayEntry = {
