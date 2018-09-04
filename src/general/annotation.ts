@@ -1,3 +1,4 @@
+import { DataType } from './types'
 /**
  * A tab to display that may have one or more sections.
  * These sections are stored as properties of this tab.
@@ -6,7 +7,7 @@
 export interface DisplayTab {
   [key: string]: DisplaySection | string | number
   /** Title of this tab (Preferably fairly short) */
-  _title: string
+  __name: string
   /** Description of this tab (displayed at the top of the tab) */
   _description: string
   /** Order in which this tab will be displayed */
@@ -20,7 +21,7 @@ export interface DisplayTab {
 export interface DisplaySection {
   [key: string]: DisplayEntry | DisplaySection | string | number
   /** Title of this section (Preferably fairly short) */
-  _title: string
+  _legend: string
   /** Description of this section (displayed under a help button) */
   _description: string
   /** Order in which this section will be displayed */
@@ -28,23 +29,26 @@ export interface DisplaySection {
 }
 /**
  * A 'leaf' entry; the actual stored values.
+ * All '__' objects are direct HTML5 attributes (min/max/value, etc)
  */
 export interface DisplayEntry {
-  /** Title of this entry (displayed beside it) */
-  _title: string
+  [key: string]: any
+  /** Tooltip of this entry (displayed on hover) */
+  __title: string
+  /** Name of this entry (displayed beside) */
+  __name: string
   /** Order in which this entry will be displayed */
   _index: number
   /** Type of stored data; used to validate */
-  _dataType: dataType
-  /** Long description of data stored */
-  _description: string
+  __type: DataType
   /** If there is a minimum possible value, set it */
-  _min?: any
+  __min?: any
   /** If there is a maximum possible value, set it */
-  _max?: any
-  /** Restricts user input to the specified options */
-  _options?: any[]
+  __max?: any
+  /** If a number steps in a specific way (see HTML5 specs) */
+  __step?: any
+  /** Max number of characters for a string */
+  __maxLength?: number
+  /** default value */
+  __value?: any
 }
-
-/** Possible datatypes to be stored.  Note that number is stored as float or integer */
-export type dataType = 'string' | 'float' | 'integer' | 'object' | 'array' | 'boolean'
