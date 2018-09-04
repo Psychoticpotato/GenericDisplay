@@ -1,22 +1,23 @@
-import * as data from '../general/dataDisplay'
-import * as annotation from '../general/annotation'
-
+import * as data from '../general/dataDisplay.js'
+import * as annotation from '../general/annotation.js'
+import { generateTabs } from '../display/generateDiv.js'
+import { randomReady } from './dataTestRandom.js'
 /** First name of an individual */
 const firstName: annotation.DisplayEntry = {
-  _title: 'First Name',
-  _dataType: 'string',
-  _description: 'First name of a person',
+  __name: 'First Name',
+  __type: 'text',
+  __title: 'First name of a person',
   _index: 0,
 }
 /** Last name of an individual */
 const lastName: annotation.DisplayEntry = {
-  _title: 'Last Name',
-  _dataType: 'string',
-  _description: 'Last name of a person',
+  __name: 'First Name',
+  __type: 'text',
+  __title: 'Last name of a person',
   _index: 1,
 }
 const nameSect: annotation.DisplaySection = {
-  _title: 'Name',
+  _legend: 'Name Information',
   _index: 0,
   _description: 'Name of an individual',
   firstName,
@@ -24,7 +25,7 @@ const nameSect: annotation.DisplaySection = {
 }
 
 const tab: annotation.DisplayTab = {
-  _title: 'personalInfo',
+  __name: 'personalInfo',
   _description: 'Info about a person',
   _index: 0,
   nameSect,
@@ -44,7 +45,17 @@ const dataVals: DataInterface[] = [{
 }]
 
 export const displayTest: data.DataDisplay = {
-  data: dataVals,
+  data: randomReady,
   annotationPath: '',
-  annotation: { tab },
+  annotation: {},
+}
+
+const tabs = generateTabs(displayTest)
+console.log(tabs)
+const body = document.getElementById('body')
+// Append to the body
+if (body) {
+  tabs.forEach((curTab) => {
+    body.appendChild(curTab)
+  })
 }
