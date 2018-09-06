@@ -18,10 +18,11 @@ export function tabsFromObj(input: any) {
         __name: key,
         _index: index,
         _description: 'DESCRIPTION NOT SET',
+        __id: key,
       }
       index++
       // Now, loop through each of the subkeys
-      const sectionList = sectionOrEntryList(input[key])
+      const sectionList = sectionOrEntryList(input[key], key)
       sectionList.forEach((item) => {
         // Check if we have a section or entry
         // console.log(item)
@@ -35,6 +36,7 @@ export function tabsFromObj(input: any) {
               _legend: 'Top Level',
               _index: 0,
               _description: 'Top Level items stored here',
+              __id: 'AAATopLevel',
             }
           }
           // Apply this entry to the top level
@@ -59,7 +61,7 @@ export function tabsFromObj(input: any) {
  * @param  index=0 Current index offset (defaults to 0)
  * @return         Array with sections and/or entries
  */
-export function sectionOrEntryList(input: any, index = 0) {
+export function sectionOrEntryList(input: any, fullId: string, index = 0) {
   // TODO: Should subObjects be at the top by default? (probably)
   /** Array to return */
   const children: (DisplayEntry | DisplaySection)[] = []
@@ -80,8 +82,9 @@ export function sectionOrEntryList(input: any, index = 0) {
           _legend: key,
           _index: index,
           _description: 'DESCRIPTION NOT SET',
+          __id: fullId,
         }
-        const subChild = sectionOrEntryList(subObj)
+        const subChild = sectionOrEntryList(subObj, `${fullId}.${key}`)
         // Add each property to the subObj
         subChild.forEach((item) => {
           // Check what kind of property we have
@@ -93,7 +96,7 @@ export function sectionOrEntryList(input: any, index = 0) {
         })
         children.push(subSect)
       } else {
-        children.push(entryFromObj(subObj, index, key))
+        children.push(entryFromObj(subObj, index, key, `${fullId}.${key}`))
       }
       index++
     }
@@ -107,7 +110,7 @@ export function sectionOrEntryList(input: any, index = 0) {
  * @param  key   Key (name) of this object
  * @return       Created Entry
  */
-export function entryFromObj(input: any, index: number, key: string) {
+export function entryFromObj(input: any, index: number, key: string, fullId: string) {
   /** The type of the input */
   const type = getType(input)
   /** The entry that we will return */
@@ -116,6 +119,7 @@ export function entryFromObj(input: any, index: number, key: string) {
     __name: key,
     _index: index,
     __type: type,
+    __id: fullId,
   }
   // If we are numeric, we have special considerations
   if (type === 'number') {

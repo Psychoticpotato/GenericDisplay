@@ -1,25 +1,27 @@
 import { generateElement } from './JSX.js'
 import { DisplayTab, DisplaySection, DisplayEntry } from '../general/annotation.js'
-import { appendToClass, addToArray } from './generateHelp.js'
+import { appendToClass, addToArray, applyAttribute } from './generateHelp.js'
 /**
  * The top-level tab
  * @param attrs Any attributes set in a key:value style
  *              'tab' is always appended to 'class
  */
-export function newTab(displayTab: DisplayTab, fullId: string, attrs?: any) {
+export function newTab(displayTab: DisplayTab, attrs?: any) {
   // Load in a blank attributes object as required
   attrs = attrs || {}
   // Append 'tab' to attrs
   appendToClass(attrs, 'tab')
-  // Apply the id and name
-  attrs.id = fullId
-  attrs.name = displayTab.__name
   /** The various sections for this tab */
   const sections: HTMLElement[] = []
   /** Offset for section insertion */
   let offset = 0
   // Begin filling in the sections
   for (const key in displayTab) {
+    if (!displayTab.hasOwnProperty(key)) {
+      continue
+    }
+    // Append any attributes
+    applyAttribute(attrs, key, displayTab)
     // Skip the key if it begins with '_'
     if (key.startsWith('_')) {
       continue
@@ -27,7 +29,7 @@ export function newTab(displayTab: DisplayTab, fullId: string, attrs?: any) {
     /** Index of the current section */
     const index = (displayTab[key] as DisplaySection)._index
     /** The section to create */
-    const section = newSection(displayTab[key] as DisplaySection, `${fullId}.${key}`)
+    const section = newSection(displayTab[key] as DisplaySection)
     // Adjust the offset and add to the array (if it exists)
     if (section) {
       offset = addToArray(sections, section, index, offset)
@@ -47,12 +49,9 @@ export function newTab(displayTab: DisplayTab, fullId: string, attrs?: any) {
   return tab
 }
 
-export function newSection(displaySection: DisplaySection, fullId: string, attrs?: any): HTMLElement | null {
+export function newSection(displaySection: DisplaySection, attrs?: any): HTMLElement | null {
   // Load in a blank attributes object as required
   attrs = attrs || {}
-  // Apply the id and legend
-  attrs.id = fullId
-  attrs.legend = displaySection.__legend
   // Append 'section' to attrs class
   appendToClass(attrs, 'section')
   const children: HTMLElement[] = []
@@ -60,6 +59,12 @@ export function newSection(displaySection: DisplaySection, fullId: string, attrs
   let offset = 0
   // Begin filling in the sections
   for (const key in displaySection) {
+    // Escape if we have a static val
+    if (!displaySection.hasOwnProperty(key)) {
+      continue
+    }
+    // Append any attributes
+    applyAttribute(attrs, key, displaySection)
     // Skip the key if it begins with '_'
     if (key.startsWith('_')) {
       continue
@@ -73,10 +78,10 @@ export function newSection(displaySection: DisplaySection, fullId: string, attrs
     const index = (displaySection[key] as DisplayEntry)._index
     // Do we have another section, or an entry?
     if (childObj.hasOwnProperty('__type')) {
-      childElem = newEntry(displaySection[key] as DisplayEntry, `${fullId}.${key}`)
+      childElem = newEntry(displaySection[key] as DisplayEntry)
     } else {
       // Push the child info to the array
-      childElem = newSection(displaySection[key] as DisplaySection, `${fullId}.${key}`)
+      childElem = newSection(displaySection[key] as DisplaySection)
     }
     // Add to array and modify offset (if it exists)
     if (childElem) {
@@ -92,11 +97,10 @@ export function newSection(displaySection: DisplaySection, fullId: string, attrs
   return <fieldset {...attrs}> <legend>{displaySection._legend}</legend> {...children} </fieldset>
 }
 
-export function newEntry(displayEntry: DisplayEntry, fullId: string, attrs?: any): HTMLElement {
+export function newEntry(displayEntry: DisplayEntry, attrs?: any): HTMLElement {
   // Load in a blank attributes object as required
   attrs = attrs || {}
-  // Apply the id and name
-  attrs.id = fullId
+
   attrs.name = displayEntry._title
   // Set as required (this will be overridden below if specified)
   attrs.required = true
@@ -104,12 +108,8 @@ export function newEntry(displayEntry: DisplayEntry, fullId: string, attrs?: any
   for (const key in displayEntry) {
     // We need to see what kind of item we have
     if (displayEntry.hasOwnProperty(key)) {
-      switch (true) {
-        case (key.startsWith('__')):
-          // Remove the double underscore and set the attribute
-          attrs[key.replace('__', '')] = displayEntry[key]
-          break
-      }
+      // Append any attributes
+      applyAttribute(attrs, key, displayEntry)
     }
 
   }
