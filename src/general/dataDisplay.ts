@@ -1,4 +1,3 @@
-import * as fs from 'fs'
 import * as annotation from './annotation'
 
 /* TODO: THIS IS A TEST.
@@ -19,24 +18,4 @@ export interface DataDisplay {
   annotation: { [key: string]: annotation.DisplayTab }
   /** The path to the annotation file */
   annotationPath: string
-}
-
-/**
- * Loads annotation for the DataDisplay
- */
-export function loadAnnotation(value: DataDisplay) {
-  // Create the file, if it doesn't already exist
-  fs.exists(value.annotationPath, (exists) => {
-    // If the file doesn't exist, escape!
-    if (!exists) { return }
-    // Load in the file
-    fs.readFile(value.annotationPath, 'utf-8', (err, data) => {
-      if (err) {
-        console.error(err)
-        throw err
-      }
-      // Put our info into the annotation
-      value.annotation = JSON.parse(data)
-    })
-  })
 }
