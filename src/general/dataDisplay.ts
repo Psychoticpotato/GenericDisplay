@@ -17,5 +17,5 @@ export interface DataDisplay {
   /** The tabs storing the description of the data (The structure needs to match 1:1 with data) */
   annotation: { [key: string]: annotation.DisplayTab }
   /** The path to the annotation file */
-  annotationPath: string
+  annotationPath?: string
 }
