@@ -45,7 +45,7 @@ const dataVals: DataInterface[] = [{
 }]
 
 export const displayTest: data.DataDisplay = {
-  data: randomReady,
+  data: [randomReady],
   annotationPath: '',
   annotation: {},
 }

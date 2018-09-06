@@ -21,7 +21,7 @@ export function generateTabs(input: DataDisplay.DataDisplay /*, devMode = false 
   }
   // If we have an empty tab array, we have to generate it another way
   if (tabs.length === 0) {
-    const objTab = tabsFromObj(input.data)
+    const objTab = tabsFromObj(input.data[0])
     objTab.forEach((tab) => {
       tabs.push(newTab(tab, tab.__name))
     })
