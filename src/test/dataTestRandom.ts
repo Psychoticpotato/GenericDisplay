@@ -2,6 +2,7 @@ export const randomReady: any = {
   TopTab: {
     pINNCGRL: {
       wsFZGTGP: 'sfypxPu',
+      intHere: 123,
       ULqNhbbp: true,
       subObj: {
         vPDastKt: 'asdf',
@@ -14,6 +15,7 @@ export const randomReady: any = {
       JlqxFDjc: false,
       Yjjrrixe: 'mIxIA',
     },
+    topLevelPrimitive: 'hello',
   },
 }
 
