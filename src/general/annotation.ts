@@ -12,6 +12,8 @@ export interface DisplayTab {
   _description: string
   /** Order in which this tab will be displayed */
   _index: number
+  /** ID applied in the html tag */
+  __id: string
   /** Top Level entries go here */
   AAATopLevel?: DisplaySection
 }
@@ -28,6 +30,8 @@ export interface DisplaySection {
   _description: string
   /** Order in which this section will be displayed */
   _index: number
+  /** ID applied in the html tag */
+  __id: string
 }
 /**
  * A 'leaf' entry; the actual stored values.
@@ -53,4 +57,6 @@ export interface DisplayEntry {
   __maxLength?: number
   /** default value */
   __value?: any
+  /** ID applied in the html tag */
+  __id: string
 }
