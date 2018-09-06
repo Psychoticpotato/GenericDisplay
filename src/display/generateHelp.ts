@@ -47,3 +47,19 @@ export function addToArray(array: any[], item: any, index: number, offset: numbe
   // Return the modified offset
   return offset
 }
+/**
+ * Applies the key to the attrs object (if it starts with '__')
+ * @param  attrs  Attributes object to modify
+ * @param  key    Key of the object
+ * @param  source Object where the attribute is stored
+ */
+export function applyAttribute(attrs: any, key: string, source: any) {
+  // First, ignore anything that doesn't start with a double underscore
+  if (!key.startsWith('__')) {
+    return
+  }
+  /** The actual attribute to change */
+  const attrKey = key.replace('__', '')
+  // Apply this attribute to the object
+  attrs[attrKey] = source[key]
+}
