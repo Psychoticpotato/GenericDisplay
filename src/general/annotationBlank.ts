@@ -28,7 +28,20 @@ export function tabsFromObj(input: any) {
         if (item.hasOwnProperty('_legend')) {
           curTab[item._legend] = item as DisplaySection
         } else if (item.hasOwnProperty('__name')) {
-          curTab[item.__name] = item as any
+          // If we have an entry, we need to push it to the __TopLevel section
+          if (!curTab.AAATopLevel) {
+            // Set the top level if it doesn't already exist
+            curTab.AAATopLevel = {
+              _legend: 'Top Level',
+              _index: 0,
+              _description: 'Top Level items stored here',
+            }
+          }
+          // Apply this entry to the top level
+          curTab.AAATopLevel[item.__name] = item
+        } else {
+          console.error('Unrecognized entry:')
+          console.error(item)
         }
       })
       console.log(curTab)

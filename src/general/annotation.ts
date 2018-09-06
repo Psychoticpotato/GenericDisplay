@@ -5,13 +5,15 @@ import { DataType } from './types'
  * The only three reserved names are `_title`, `_index`, and '_description'
  */
 export interface DisplayTab {
-  [key: string]: DisplaySection | string | number
+  [key: string]: DisplaySection | string | number | undefined
   /** Title of this tab (Preferably fairly short) */
   __name: string
   /** Description of this tab (displayed at the top of the tab) */
   _description: string
   /** Order in which this tab will be displayed */
   _index: number
+  /** Top Level entries go here */
+  AAATopLevel?: DisplaySection
 }
 /**
  * A Section that may have one or more entries (or other sections)
