@@ -1,6 +1,6 @@
 import { generateElement } from './JSX.js'
 import { DisplayTab, DisplaySection, DisplayEntry } from '../general/annotation.js'
-import { appendToClass, addToArray, applyAttribute } from './generateHelp.js'
+import { addToArray, applyAttribute } from './generateHelp.js'
 /**
  * The top-level tab
  * @param attrs Any attributes set in a key:value style
@@ -9,8 +9,6 @@ import { appendToClass, addToArray, applyAttribute } from './generateHelp.js'
 export function newTab(displayTab: DisplayTab, attrs?: any) {
   // Load in a blank attributes object as required
   attrs = attrs || {}
-  // Append 'tab' to attrs
-  appendToClass(attrs, 'tab')
   /** The various sections for this tab */
   const sections: HTMLElement[] = []
   /** Offset for section insertion */
@@ -52,8 +50,6 @@ export function newTab(displayTab: DisplayTab, attrs?: any) {
 export function newSection(displaySection: DisplaySection, attrs?: any): HTMLElement | null {
   // Load in a blank attributes object as required
   attrs = attrs || {}
-  // Append 'section' to attrs class
-  appendToClass(attrs, 'section')
   const children: HTMLElement[] = []
   /** The offset in the event of duplicate indexes */
   let offset = 0

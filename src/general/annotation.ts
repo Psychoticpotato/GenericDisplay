@@ -14,7 +14,11 @@ export interface DisplayTab {
   _index: number
   /** ID applied in the html tag */
   __id: string
-  /** Top Level entries go here */
+  /** Any classes associated with this element */
+  __class: string
+  /** Top Level entries go here.
+   * It is advisable to store all entries in objects, though.
+   */
   AAATopLevel?: DisplaySection
 }
 /**
@@ -32,6 +36,8 @@ export interface DisplaySection {
   _index: number
   /** ID applied in the html tag */
   __id: string
+  /** Any classes associated with this element */
+  __class: string
 }
 /**
  * A 'leaf' entry; the actual stored values.
@@ -59,4 +65,6 @@ export interface DisplayEntry {
   __value?: any
   /** ID applied in the html tag */
   __id: string
+  /** Any classes associated with this element */
+  __class: string
 }

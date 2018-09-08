@@ -8,6 +8,7 @@ const firstName: annotation.DisplayEntry = {
   __type: 'text',
   __title: 'First name of a person',
   __id: 'name.last',
+  __class: 'display-entry',
   _index: 0,
 }
 /** Last name of an individual */
@@ -16,6 +17,7 @@ const lastName: annotation.DisplayEntry = {
   __type: 'text',
   __title: 'Last name of a person',
   __id: 'name.first',
+  __class: 'display-entry',
   _index: 1,
 }
 const nameSect: annotation.DisplaySection = {
@@ -23,6 +25,7 @@ const nameSect: annotation.DisplaySection = {
   _legend: 'Name Information',
   _index: 0,
   _description: 'Name of an individual',
+  __class: 'display-section',
   firstName,
   lastName,
 }
@@ -32,6 +35,7 @@ const tab: annotation.DisplayTab = {
   _description: 'Info about a person',
   _index: 0,
   __id: 'personalInfo',
+  __class: 'display-tab',
   nameSect,
 }
 

@@ -19,6 +19,7 @@ export function tabsFromObj(input: any) {
         _index: index,
         _description: 'DESCRIPTION NOT SET',
         __id: key,
+        __class: 'display-tab',
       }
       index++
       // Now, loop through each of the subkeys
@@ -37,6 +38,7 @@ export function tabsFromObj(input: any) {
               _index: 0,
               _description: 'Top Level items stored here',
               __id: 'AAATopLevel',
+              __class: 'display-section',
             }
           }
           // Apply this entry to the top level
@@ -83,6 +85,7 @@ export function sectionOrEntryList(input: any, fullId: string, index = 0) {
           _index: index,
           _description: 'DESCRIPTION NOT SET',
           __id: fullId,
+          __class: 'display-section',
         }
         const subChild = sectionOrEntryList(subObj, `${fullId}.${key}`)
         // Add each property to the subObj
@@ -120,6 +123,7 @@ export function entryFromObj(input: any, index: number, key: string, fullId: str
     _index: index,
     __type: type,
     __id: fullId,
+    __class: 'display-entry',
   }
   // If we are numeric, we have special considerations
   if (type === 'number') {

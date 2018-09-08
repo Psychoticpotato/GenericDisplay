@@ -6,7 +6,7 @@
  * @param  {[object]} attrs Attributes to mutate
  * @param  {[string]} val   Value to add to the classes
  */
-export function appendToClass(attrs: any, val: string) {
+function appendToClass(attrs: any, val: string) {
   /** The class string */
   const classStr: string = attrs.class
   // If we already have class, check if we have the 'val' on it
