@@ -20,12 +20,12 @@ const lastName: annotation.DisplayEntry = {
   __class: 'display-entry',
   _index: 1,
 }
-const nameSect: annotation.DisplaySection = {
+const nameSect: annotation.DisplayGroup = {
   __id: 'personalInfo.name',
   _legend: 'Name Information',
   _index: 0,
   _description: 'Name of an individual',
-  __class: 'display-section',
+  __class: 'display-group',
   firstName,
   lastName,
 }

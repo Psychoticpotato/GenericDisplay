@@ -1,4 +1,4 @@
-import { DisplayTab, DisplaySection, DisplayEntry } from './annotation.js'
+import { DisplayTab, DisplayGroup, DisplayEntry } from './annotation.js'
 import { getType } from './types.js'
 
 /**
@@ -23,14 +23,14 @@ export function tabsFromObj(input: any) {
       }
       index++
       // Now, loop through each of the subkeys
-      const sectionList = sectionOrEntryList(input[key], key)
-      sectionList.forEach((item) => {
-        // Check if we have a section or entry
+      const groupList = groupOrEntryList(input[key], key)
+      groupList.forEach((item) => {
+        // Check if we have a group or entry
         // console.log(item)
         if (item.hasOwnProperty('_legend')) {
-          curTab[item._legend] = item as DisplaySection
+          curTab[item._legend] = item as DisplayGroup
         } else if (item.hasOwnProperty('__name')) {
-          // If we have an entry, we need to push it to the __TopLevel section
+          // If we have an entry, we need to push it to the __TopLevel group
           if (!curTab.AAATopLevel) {
             // Set the top level if it doesn't already exist
             curTab.AAATopLevel = {
@@ -38,7 +38,7 @@ export function tabsFromObj(input: any) {
               _index: 0,
               _description: 'Top Level items stored here',
               __id: 'AAATopLevel',
-              __class: 'display-section',
+              __class: 'display-group',
             }
           }
           // Apply this entry to the top level
@@ -58,15 +58,15 @@ export function tabsFromObj(input: any) {
 }
 
 /**
- * Creates a Section or Entry list
- * @param  input   Object to check.  SubObjects become new sections
+ * Creates a Group or Entry list
+ * @param  input   Object to check.  SubObjects become new groups
  * @param  index=0 Current index offset (defaults to 0)
- * @return         Array with sections and/or entries
+ * @return         Array with groups and/or entries
  */
-export function sectionOrEntryList(input: any, fullId: string, index = 0) {
+export function groupOrEntryList(input: any, fullId: string, index = 0) {
   // TODO: Should subObjects be at the top by default? (probably)
   /** Array to return */
-  const children: (DisplayEntry | DisplaySection)[] = []
+  const children: (DisplayEntry | DisplayGroup)[] = []
   // Loop through all the keys
   for (const key in input) {
     // With 'hasOwnProperty()', we ignore static members
@@ -79,15 +79,15 @@ export function sectionOrEntryList(input: any, fullId: string, index = 0) {
       const subObj: {} = input[key]
       // console.log(typeof subObj)
       if (typeof subObj === 'object') {
-        // Grab the individual section here
-        const subSect: DisplaySection = {
+        // Grab the individual group here
+        const subSect: DisplayGroup = {
           _legend: key,
           _index: index,
           _description: 'DESCRIPTION NOT SET',
           __id: fullId,
-          __class: 'display-section',
+          __class: 'display-group',
         }
-        const subChild = sectionOrEntryList(subObj, `${fullId}.${key}`)
+        const subChild = groupOrEntryList(subObj, `${fullId}.${key}`)
         // Add each property to the subObj
         subChild.forEach((item) => {
           // Check what kind of property we have
