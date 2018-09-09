@@ -1,5 +1,5 @@
 export const randomReady: any = {
-  TopTab: {
+  FirstTab: {
     pINNCGRL: {
       wsFZGTGP: 'sfypxPu',
       intHere: 123,
@@ -16,6 +16,15 @@ export const randomReady: any = {
       Yjjrrixe: 'mIxIA',
     },
     topLevelPrimitive: 'hello',
+  },
+  SecondTab: {
+    firstSection: {
+      randomEntry: 'asdfaff',
+      moreRandom: 1234,
+    },
+    secondSection: {
+      greetingsTo: 'The Freeman',
+    },
   },
 }
 
