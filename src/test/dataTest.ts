@@ -13,7 +13,7 @@ const firstName: annotation.DisplayEntry = {
 }
 /** Last name of an individual */
 const lastName: annotation.DisplayEntry = {
-  __name: 'First Name',
+  __name: 'Last Name',
   __type: 'text',
   __title: 'Last name of a person',
   __id: 'name.first',
@@ -30,7 +30,7 @@ const nameSect: annotation.DisplayGroup = {
   lastName,
 }
 
-const tab: annotation.DisplayTab = {
+const tab1: annotation.DisplayTab = {
   __name: 'personalInfo',
   _description: 'Info about a person',
   _index: 0,
@@ -52,13 +52,18 @@ const dataVals: DataInterface[] = [{
   lastName: 'Lennon',
 }]
 
-export const displayTest: data.DataDisplay = {
+const displayArtist: data.DataDisplay = {
+  data: dataVals,
+  annotationPath: '',
+  annotation: { tab1 },
+}
+export const displayRandom: data.DataDisplay = {
   data: [randomReady],
   annotationPath: '',
   annotation: {},
 }
 
-const tabs = generateTabs(displayTest)
+const tabs = generateTabs(displayRandom)
 console.log(tabs)
 const body = document.getElementById('body')
 // Append to the body
