@@ -1,0 +1,29 @@
+
+/* Set the base variables */
+:root {
+  --mainBackColor: black;
+  --mainForeColor: lightgreen;
+  --mainFocusColor: green;
+
+}
+
+/* Set the color for selections */
+::selection{
+  background-color: var(--mainForeColor);
+  color: var(--mainBackColor);
+}
+
+/* Set general information here */
+* {
+  background-color: var(--mainBackColor);
+  color: var(--mainForeColor);
+  font-weight: bold;
+  font-family: "Lucida Console", Monaco, monospace;
+}
+h1 {
+  color: darkgreen;
+}
+
+.data-entry {
+  
+}
