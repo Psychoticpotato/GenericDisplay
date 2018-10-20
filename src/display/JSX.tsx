@@ -48,15 +48,23 @@ function generateChild(input: any, parent: HTMLElement) {
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      image: any,
-      div: any,
-      p: any,
-      button: any,
-      input: any,
-      label: any,
-      fieldset: any,
-      br: any,
-      legend: any,
+      image: any
+      div: any
+      p: any
+      button: any
+      input: any
+      label: any
+      fieldset: any
+      br: any
+      legend: any
+      section: any
+      a: any
+      h1: any
+      h2: any
+      h3: any
+      h4: any
+      h5: any
+      h6: any
     }
   }
 }
