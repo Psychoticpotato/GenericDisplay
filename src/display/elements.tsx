@@ -38,11 +38,13 @@ export function newTab(displayTab: DisplayTab, attrs?: any) {
   //   <input type='radio' {...attrs} />
   // </label>
   // Finally, return the constructed tab
-  const tab: HTMLElement = <div {...attrs}>
-    {...groups}
-  </div>
+  const tab: HTMLElement = <section {...attrs}>
+    <h2><a href={'#' + displayTab.__id}>{displayTab.__name}</a></h2>
+    <div class='display-tab-body'>{...groups}</div>
+  </section>
   //    {fullId}<br />
-
+  // TODO: Tab Support Link below!
+  // TODO: https://www.sitepoint.com/css3-tabs-using-target-selector/
   // And return the constructed tab
   return tab
 }
@@ -109,7 +111,11 @@ export function newEntry(displayEntry: DisplayEntry, attrs?: any): HTMLElement {
     }
 
   }
+  /** We apply the different classes if we have a checkbox or other value */
+  const divClass = displayEntry.__type === 'checkbox' ? 'entry-div display-checkbox' : 'entry-div display-other'
   // TODO: Add support for arrays
   // Return the constructed label
-  return <label>{displayEntry.__name}: <input {...attrs} /> </label>
+  return <div class={divClass}><label>{displayEntry.__name}: <input {...attrs} /> </label></div>
 }
+// return <div class={divClass}><label>{displayEntry.__name}: <input {...attrs} /> </label></div>
+// return <label class={labelClass}>{displayEntry.__name}: <input {...attrs} /> </label>
